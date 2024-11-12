@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Arrivals";
+}
+@model airport.Models.AirportInfoAPI.Response.ArrivalFlight
+
+
+
+<body>
+    <a class="nav-link" asp-area="" asp-action="Index" asp-controller="Arrivals">Tillbaka till Ankomster</a>
+
+    <div class="container mx-auto p-4 bg-white rounded shadow-lg">
+        <h1 class="font-bold text-5xl mb-6">@Model.departureAirportSwedish</h1>
+
+        <div class="text-xl mb-4">
+            <span class="font-semibold">@Model.flightId</span> - @Model.airlineOperator.Name
+        </div>
+
+        <hr class="border-black mb-6" />
+
+        <table class="min-w-full bg-white text-lg">
+            <thead>
+                <tr class="bg-gray-200 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">
+                    <th class="py-3 px-6 font-medium">Tid</th>
+                    <th class="py-3 px-6 font-medium">Status</th>
+                    <th class="py-3 px-6 font-medium">Gate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-gray-100 border-t border-gray-200">
+                    <td class="py-3 px-6">@Model.arrivalTime.scheduledUtcShort</td>
+                    @if (Model.remarksSwedish.Any(x => x.text != null))
+                    {
+                        <td class="py-3 px-6">@Model.remarksSwedish.FirstOrDefault(x => x.text != null).text</td>
+                    }
+                    else
+                    {
+                        <td class="py-3 px-6"></td>
+                    }
+                    <td class="py-3 px-6">@Model.locationAndStatus.gate</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>

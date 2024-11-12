@@ -1,0 +1,47 @@
+﻿@model List<airport.Models.AirportInfoAPI.Response.Shops>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+    @foreach (var shops in Model)
+    {
+        <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+            <img class="w-full h-48 object-cover" src="@shops?.PhotoImgUrl?? 'default-image-url.jpg'" alt="@shops?.Name?? 'Default shops Name'" />
+            <img class="w-24 h-24 object-cover mx-auto mt-4" src="@shops?.AppImgUrl?? 'default-app-icon-url.png'" alt="App Icon" />
+            <div class="p-4">
+                <h2 class="text-xl font-semibold mb-2">@shops?.Name</h2>
+                <p class="mb-1">@shops?.Address</p>
+                <p class="mb-1">@shops?.Telephone</p>
+                <p class="mb-1">@shops?.OpeningHours</p>
+                <ul class="list-disc pl-5 mb-2">
+                    <h3>Kategorier:</h3>
+                    <ul>
+                        @if (shops?.Categories != null)
+                        {
+                            foreach (var category in shops.Categories)
+                            {
+                                <li>@category.categoryLocalizedDescription</li>
+                            }
+                        }
+                    </ul>
+                </ul>
+                <h3>Nyckelord:</h3>
+                <ul>
+                    @if (shops?.Keywords != null)
+                    {
+                        foreach (var keyword in shops.Keywords)
+                        {
+                            <li>@keyword</li>
+                        }
+                    }
+                </ul>
+                <div class="grid grid-cols-2 gap-2">
+                    @if (shops?.Location != null && shops.Location.TerminalName != null)
+                    {
+                        <div class="border p-2 rounded">
+                            <p>@shops.Location.TerminalName - @shops.Location.Place (@(shops.Location.BeforeSecurity ? "Before Security" : "After Security"))</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

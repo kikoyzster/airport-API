@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-5">
+        <header class="text-center mb-4">
+            <h1 class="text-3xl font-bold">Error</h1>
+        </header>
+
+        <div class="text-center mb-4">
+            <p class="text-lg text-red-500">@ViewBag.ErrorMessage</p>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="text-blue-500">Go back to home</a>
+        </div>
+    </div>
+</body>
+</html>

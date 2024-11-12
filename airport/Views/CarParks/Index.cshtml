@@ -1,0 +1,54 @@
+﻿@model List<airport.Models.AirportInfoAPI.Response.CarParks>
+
+@{
+    ViewData["Title"] = "Car Parks";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @ViewBag.AirportName</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-5">
+        <header class="text-center mb-4">
+            <h1 class="text-3xl font-bold">Car Parks - @ViewBag.AirportName</h1>
+        </header>
+
+        <div class="text-center mb-4">
+            <p class="text-lg">Here you can find the car parks for @ViewBag.AirportName airport.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var carPark in Model)
+                {
+                    <div class="bg-white p-4 rounded shadow-md">
+                        <h2 class="text-xl font-bold">@carPark.CarParkName</h2>
+                        <p><strong>Terminal:</strong> @carPark.Terminal</p>
+                        <p><strong>Category:</strong> @carPark.CategoryName</p>
+                        <p><strong>Product Label:</strong> @carPark.ProductLabel</p>
+                        <p><strong>Transfer Time:</strong> @carPark.TransferTime</p> <!-- Displaying TransferTime as string -->
+                        <p><strong>Transfer Method:</strong> @carPark.TransferMethod</p>
+                        <p><strong>Is Sold Out:</strong> @(carPark.IsSoldOut ? "Yes" : "No")</p>
+                        @if (!string.IsNullOrEmpty(carPark.MapImageUrl))
+                        {
+                            <img src="@carPark.MapImageUrl" alt="@carPark.CarParkName Map" class="mt-2">
+                        }
+                        <p><strong>Latitude:</strong> @carPark.Latitude</p>
+                        <p><strong>Longitude:</strong> @carPark.Longitude</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No car parks data available.</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

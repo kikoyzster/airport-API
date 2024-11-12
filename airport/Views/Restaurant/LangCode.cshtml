@@ -1,0 +1,7 @@
+﻿@model IEnumerable<airport.Models.AirportInfoAPI.Response.Languages>
+
+@foreach (var language in Model)
+{
+    <li>@language.Name</li>
+    <li>@language.LangCode</li>
+}

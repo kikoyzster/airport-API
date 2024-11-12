@@ -1,0 +1,38 @@
+﻿
+
+@model List<airport.Models.AirportInfoAPI.Response.CityDestination>
+<h2>Airport Destinations</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center">IATA</th>
+            <th class="text-center">Occured Times</th>
+            <th class="text-center">Latitude</th>
+            <th class="text-center">Longitude</th>
+            <th class="text-center">City Code IATA</th>
+            <th class="text-center">Operators</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var destination in Model)
+        {
+            <tr>
+                <td class="text-center">@destination.IATA</td>
+                <td class="text-center">@destination.OccuredTimes</td>
+                <td class="text-center">@destination.LatitudeAirport</td>
+                <td class="text-center">@destination.LongitudeAirport</td>
+                <td class="text-center">@destination.CodeIataCity</td>
+                <td class="text-center">
+                    <ul class="list-unstyled">
+                        @foreach (var operators in destination.Operators)
+                        {
+                            <li>@operators.Name - @operators.Iata</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ 

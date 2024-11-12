@@ -1,0 +1,47 @@
+﻿@model List<airport.Models.AirportInfoAPI.Response.Services>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+    @foreach (var services in Model)
+    {
+        <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+            <img class="w-full h-48 object-cover" src="@services?.PhotoImgUrl?? 'default-image-url.jpg'" alt="@services?.Name?? 'Default services Name'" />
+            <img class="w-24 h-24 object-cover mx-auto mt-4" src="@services?.AppImgUrl?? 'default-app-icon-url.png'" alt="App Icon" />
+            <div class="p-4">
+                <h2 class="text-xl font-semibold mb-2">@services?.Name</h2>
+                <p class="mb-1">@services?.Address</p>
+                <p class="mb-1">@services?.Telephone</p>
+                <p class="mb-1">@services?.OpeningHours</p>
+                <ul class="list-disc pl-5 mb-2">
+                    <h3>Kategorier:</h3>
+                    <ul>
+                        @if (services?.Categories != null)
+                        {
+                            foreach (var category in services.Categories)
+                            {
+                                <li>@category.categoryLocalizedDescription</li>
+                            }
+                        }
+                    </ul>
+                </ul>
+                <h3>Nyckelord:</h3>
+                <ul>
+                    @if (services?.Keywords != null)
+                    {
+                        foreach (var keyword in services.Keywords)
+                        {
+                            <li>@keyword</li>
+                        }
+                    }
+                </ul>
+                <div class="grid grid-cols-2 gap-2">
+                    @if (services?.Location != null && services.Location.TerminalName != null)
+                    {
+                        <div class="border p-2 rounded">
+                            <p>@services.Location.TerminalName - @services.Location.Place (@(services.Location.BeforeSecurity ? "Before Security" : "After Security"))</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

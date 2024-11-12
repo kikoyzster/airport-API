@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to the Home Page</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 mt-8">
+    <div class="bg-gray-100 flex flex-col justify-center min-h-screen pb-8">
+        <div class="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
+            <h2 class="text-2xl mb-4 text-center text-gray-800 font-bold">Please select the airport</h2>
+            <div class="space-y-4 text-center flex flex-col gap-4">
+                @{
+                    var airports = new List<(string Name, string Code)>
+                {
+                ("Stockholm Arlanda Airport", "ARN"),
+                ("Bromma Stockholm Airport", "BMA"),
+                ("Göteborg Landvetter Airport", "GOT"),
+                ("Malmö Airport", "MMX"),
+                ("Luleå Airport", "LLA"),
+                ("Umeå Airport", "UME"),
+                ("Åre Östersund Airport", "OSD"),
+                ("Visby Airport", "VBY"),
+                ("Ronneby Airport", "RNB"),
+                ("Kiruna Airport", "KRN")
+                };
+                }
+
+                @foreach (var airport in airports)
+                {
+                    <a href="@Url.Action("Menu", "Home", new { airportCode = airport.Code, name = airport.Name })"
+                       class="block w-full bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-200 ease-in-out">
+                        @airport.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

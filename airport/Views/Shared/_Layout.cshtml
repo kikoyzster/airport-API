@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - airport</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/airport.styles.css" asp-append-version="true" />
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 50; /* Add this line or increase the value if necessary */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 100; /* Add this line or increase the value if necessary */
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-link {
+            color: #3b82f6;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
+            z-index: 10; /* Adjust this value if necessary */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="w-full shadow-md">
+        <nav class="mx-auto flex max-w-6xl gap-8 px-6 transition-all duration-200 ease-in-out lg:px-12 py-4">
+            <div class="relative flex items-center">
+                <a href="/"><img src="https://www.creativefabrica.com/wp-content/uploads/2020/09/14/Airport-Flat-Vector-Building-Icon-Graphics-5477491-2-580x386.png" loading="lazy" width="100" height="100"></a>
+            </div>
+            <ul class="hidden items-center justify-center gap-6 md:flex">
+                @{
+                    var sections = new List<string> { "Departures", "Arrivals", "Restaurant", "Shop", "AirportMaps", "Airlines", "CarParks" };
+                    var airports = new List<(string Name, string Code)> {
+                ("Stockholm Arlanda Airport", "ARN"), ("Göteborg Landvetter Airport", "GOT"), ("Bromma Stockholm Airport", "BMA"),
+                ("Malmö Airport", "MMX"), ("Luleå Airport", "LLA"), ("Umeå Airport", "UME"), ("Åre Östersund Airport", "OSD"),
+                ("Visby Airport", "VBY"), ("Ronneby Airport", "RNB"), ("Kiruna Airport", "KRN")
+                };
+                }
+
+                @foreach (var sect in sections)
+                {
+                    <li class="pt-1.5 font-dm text-sm font-medium text-slate-700">
+                        <a asp-area="" asp-action="Index" asp-controller="@sect">@sect</a>
+                    </li>
+                }
+            </ul>
+            <div class="flex-grow"></div>
+            <div class="hidden items-center justify-center gap-6 md:flex">
+                <div class="dropdown">
+                    <a href="#" class="rounded-md bg-gradient-to-br from-green-600 to-emerald-400 px-3 py-1.5 font-dm text-sm font-medium text-white shadow-md hover:scale-[1.03]">Select the airport</a>
+                    <div class="dropdown-content">
+                        @foreach (var airport in airports)
+                        {
+                            <a href="@Url.Action("Menu", "Home", new { airportCode = airport.Code, name = airport.Name })">@airport.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex items-center justify-center md:hidden">
+                <button type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-auto text-slate-900">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content container mt-5">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6">
+        <span class="text-sm text-gray-500 sm:text-center">© 2024 <a href="#" class="hover:underline">Airport™</a>. All Rights Reserved.</span>
+        <ul class="flex flex-wrap items-center justify-between mt-3 text-sm font-medium text-gray-500 sm:mt-0">
+            @foreach (var sect in new List<string> { "Security Wait Time", "CarParks", "Destinations", "Contact" })
+            {
+                <li class="pt-1.5 font-dm text-sm font-medium text-slate-700 mx-2">
+                    <a asp-area="" asp-action="Index" asp-controller="@sect.Replace(" ", string.Empty)">@sect</a>
+                </li>
+            }
+        </ul>
+    </footer>
+
+</body>
+</html>

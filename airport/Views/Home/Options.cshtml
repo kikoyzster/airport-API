@@ -1,0 +1,19 @@
+﻿@{
+    var iata = ViewBag.Iata as string;
+    var name = ViewBag.Name as string;
+    var sections = new List<string> { "Departures", "Arrivals", "Restaurant", "Shopping", "Airport maps", "Airlines", "CarParks", "Waiting time in Security" };
+}
+
+<h1 class="text-2xl font-bold text-gray-800 my-4">Options for @name (@iata)</h1>
+
+<ul class="list-disc pl-5 space-y-2">
+    @foreach (var option in sections)
+    {
+        <li class="text-lg">
+            <a href="@Url.Action("Index", option.Replace(" ", string.Empty), new { iata = iata, name = name })"
+               class="text-blue-600 hover:text-blue-800 hover:underline transition duration-200 ease-in-out">
+                @option
+            </a>
+        </li>
+    }
+</ul>

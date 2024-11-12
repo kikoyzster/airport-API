@@ -1,0 +1,25 @@
+﻿@model List<airport.Models.AirportInfoAPI.Response.Airlines>
+
+<div class="text-center py-4">
+    <h1 class="text-2xl font-bold text-gray-800 animate-bounce">@ViewBag.AirportName </h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>IATA</th>
+            
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var airline in Model)
+        {
+            <tr>
+                <td>@airline.IATA</td>
+                
+                <td>@airline.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

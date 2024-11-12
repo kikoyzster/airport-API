@@ -1,0 +1,50 @@
+﻿@model List<airport.Models.AirportInfoAPI.Response.CityDestination>
+
+@{
+    ViewBag.Title = "Destinations";
+}
+<div class="text-center py-4">
+    <h2>Destinations</h2>
+    <h1 class="text-2xl font-bold text-gray-800 animate-bounce">@ViewBag.AirportName </h1>
+</div>
+
+
+@if (Model == null || !Model.Any())
+{
+    <p>No destinations available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IATA</th>
+                <th>City Code</th>
+                <th>Occured Times</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Operators</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var destination in Model)
+            {
+                <tr>
+                    <td>@destination.IATA</td>
+                    <td>@destination.CodeIataCity</td>
+                    <td>@destination.OccuredTimes</td>
+                    <td>@destination.LatitudeAirport</td>
+                    <td>@destination.LongitudeAirport</td>
+                    <td>
+                        <ul>
+                            @foreach (var operators in destination.Operators)
+                            {
+                                <li>@operators.Name (@operators.Iata)</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

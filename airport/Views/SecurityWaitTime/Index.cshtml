@@ -1,0 +1,36 @@
+﻿@model airport.Models.WaitTimeAPI.Response.WaitTimeResponse
+
+@{
+    ViewData["Title"] = "Security Wait Time";
+}
+
+<h2>Security Wait Time for @ViewBag.AirportName (@ViewBag.AirportIata)</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Queue Name</th>
+                <th>Current Wait Time</th>
+                <th>Terminal</th>
+                <th>Fast Track</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var station in Model.WaitTimes)
+            {
+                <tr>
+                    <td>@station.QueueName</td>
+                    <td>@station.CurrentProjectedWaitTime minutes</td>
+                    <td>@station.Terminal</td>
+                    <td>@(station.IsFastTrack ? "Yes" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
